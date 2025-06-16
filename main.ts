@@ -15,7 +15,9 @@ pins.setPull(IR.r, PinPullMode.PullNone);
 function online(left: number, right: number, center: number) {
     if (left || right  || center === 1) {
         return true
-    } else return false
+    } else if (left && right && center===0){
+        return false
+    }return false
 }
 
 let center: number = 0
@@ -27,16 +29,17 @@ basic.forever(function () {
     right = pins.digitalReadPin(IR.r)
     if (online(left, right, center)) {
         if (center === 1) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed )
             PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
         } else if (left === 1) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 20)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed - 20)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  - 60)
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed  + 30)
         } else if (right === 1)
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 20)
-        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed + 20)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed   + 30)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 60)
     } else if (!online(left, right, center)) {
-        PCAmotor.MotorStopAll
-    }
+        PCAmotor.MotorStop(PCAmotor.Motors.M1, )
+        PCAmotor.MotorStop(PCAmotor.Motors.M4,)
+    } 
 
 })
