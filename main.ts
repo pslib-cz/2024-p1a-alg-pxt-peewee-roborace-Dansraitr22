@@ -8,7 +8,7 @@ const IR: IRC = {
     c: DigitalPin.P15,
     r: DigitalPin.P13
 }
-let speed: number = 90
+let speed: number = 65
 pins.setPull(IR.l, PinPullMode.PullNone);
 pins.setPull(IR.c, PinPullMode.PullNone);
 pins.setPull(IR.r, PinPullMode.PullNone);
@@ -32,14 +32,31 @@ basic.forever(function () {
             PCAmotor.MotorRun(PCAmotor.Motors.M1, speed )
             PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
         } else if (left === 1) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  - 60)
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed  + 30)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  - 40)
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed  + 20)
         } else if (right === 1)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed   + 30)
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 60)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed + 20)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1,  speed - 40)
     } else if (!online(left, right, center)) {
         PCAmotor.MotorStop(PCAmotor.Motors.M1, )
         PCAmotor.MotorStop(PCAmotor.Motors.M4,)
+
     } 
 
 })
+radio.onReceivedString (function(name:string){
+    
+    if (name==="leva") {
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed - 40)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 20)
+    }
+    if (name ==="prava") {
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed + 20)
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 40)
+    }
+    if (name ==="rovne") {
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
+    }
+} 
+)
