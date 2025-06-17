@@ -24,7 +24,7 @@ function online(left: number, right: number, center: number) {
 let center: number = 0
 let left: number = 0
 let right: number = 0
-
+let cr:boolean=false
 basic.forever(function () {
     center = pins.digitalReadPin(IR.c)
     left = pins.digitalReadPin(IR.l)
@@ -44,7 +44,7 @@ basic.forever(function () {
     } else if (!online(left, right, center)) {
         PCAmotor.MotorStop(PCAmotor.Motors.M1)
         PCAmotor.MotorStop(PCAmotor.Motors.M4)
-
+cr=true
     }
 
 })
