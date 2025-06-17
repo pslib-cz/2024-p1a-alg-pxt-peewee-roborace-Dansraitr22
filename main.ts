@@ -1,3 +1,4 @@
+radio.setGroup(21)
 type IRC = {
     l: DigitalPin,
     c: DigitalPin,
@@ -28,7 +29,7 @@ basic.forever(function () {
     center = pins.digitalReadPin(IR.c)
     left = pins.digitalReadPin(IR.l)
     right = pins.digitalReadPin(IR.r)
-    if (online(left, right, center)) {
+    if (online(left, right, center)&&cr===false) {
         if (center === 1) {
             PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
             PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
@@ -52,14 +53,20 @@ radio.onReceivedString(function (name: string) {
     if (name === "leva") {
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed - 40)
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 20)
+        cr = false
+        basic.pause(300)
     }
     if (name === "prava") {
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed + 20)
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 40)
+        cr = false
+        basic.pause(300)
     }
     if (name === "rovne") {
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
+        cr = false
+        basic.pause(300)
     }
 }
 )
