@@ -4,11 +4,11 @@ type IRC = {
     r: DigitalPin
 }
 const IR: IRC = {
-    l: DigitalPin.P14,
-    c: DigitalPin.P15,
-    r: DigitalPin.P13
+    c: DigitalPin.P14,
+    l: DigitalPin.P13,
+    r: DigitalPin.P15
 }
-let speed: number = 85
+let speed: number = 140
 pins.setPull(IR.l, PinPullMode.PullNone);
 pins.setPull(IR.c, PinPullMode.PullNone);
 pins.setPull(IR.r, PinPullMode.PullNone);
@@ -30,14 +30,14 @@ basic.forever(function () {
     right = pins.digitalReadPin(IR.r)
     if (online(left, right, center)) {
         if (center === 1) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 40 )
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed  )
             PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
         } else if (left === 1) {
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  - 40)
-            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 40  + 20)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, 0 )
+            PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
         } else if (right === 1)
-            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  + 50)
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 40 - 70)
+            PCAmotor.MotorRun(PCAmotor.Motors.M4, speed  )
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, 0)
     } else if (!online(left, right, center)) {
         PCAmotor.MotorStop(PCAmotor.Motors.M1, )
         PCAmotor.MotorStop(PCAmotor.Motors.M4,)
