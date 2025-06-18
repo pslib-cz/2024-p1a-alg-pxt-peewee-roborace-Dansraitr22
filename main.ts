@@ -69,19 +69,19 @@ radio.onReceivedString(function (name: string) {
         PCAmotor.MotorRun(PCAmotor.Motors.M4, 0 )
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed )
         cr = false
-        basic.pause(3000)
+        basic.pause(1000)
     }
     if (name === "prava") {
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed )
         PCAmotor.MotorRun(PCAmotor.Motors.M1, 0 )
         cr = false
-        basic.pause(3000)
+        basic.pause(1000)
     }
     if (name === "rovne") {
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
         cr = false
-        basic.pause(3000)
+        basic.pause(1000)
     }
 }
 )
