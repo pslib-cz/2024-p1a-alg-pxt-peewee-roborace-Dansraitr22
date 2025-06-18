@@ -9,7 +9,7 @@ const IR: IRC = {
     l: DigitalPin.P13,
     r: DigitalPin.P15
 }
-let speed: number = 125
+let speed: number = 120
 pins.setPull(IR.l, PinPullMode.PullNone);
 pins.setPull(IR.c, PinPullMode.PullNone);
 pins.setPull(IR.r, PinPullMode.PullNone);
