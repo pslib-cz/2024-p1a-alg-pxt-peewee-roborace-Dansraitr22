@@ -9,7 +9,7 @@ const IR: IRC = {
     l: DigitalPin.P13,
     r: DigitalPin.P15
 }
-let speed: number = 100
+let speed: number = 125
 pins.setPull(IR.l, PinPullMode.PullNone);
 pins.setPull(IR.c, PinPullMode.PullNone);
 pins.setPull(IR.r, PinPullMode.PullNone);
@@ -45,28 +45,43 @@ basic.forever(function () {
         PCAmotor.MotorStop(PCAmotor.Motors.M1)
         PCAmotor.MotorStop(PCAmotor.Motors.M4)
 cr=true
+basic.showLeds(`
+. . . . .
+. . . . .
+. . # . .
+. . . . .
+. . . . .
+`)
     }
+
+    basic.showLeds(`
+    . . . . .
+    . . . . .
+    . # # # .
+    . . . . .
+    . . . . .
+    `)
 
 })
 radio.onReceivedString(function (name: string) {
 
     if (name === "leva") {
-        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed - 40)
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed + 20)
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, 0 )
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed )
         cr = false
-        basic.pause(300)
+        basic.pause(3000)
     }
     if (name === "prava") {
-        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed + 20)
-        PCAmotor.MotorRun(PCAmotor.Motors.M1, speed - 40)
+        PCAmotor.MotorRun(PCAmotor.Motors.M4, speed )
+        PCAmotor.MotorRun(PCAmotor.Motors.M1, 0 )
         cr = false
-        basic.pause(300)
+        basic.pause(3000)
     }
     if (name === "rovne") {
         PCAmotor.MotorRun(PCAmotor.Motors.M1, speed)
         PCAmotor.MotorRun(PCAmotor.Motors.M4, speed)
         cr = false
-        basic.pause(300)
+        basic.pause(3000)
     }
 }
 )
